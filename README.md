@@ -98,6 +98,13 @@ Also see the entity relationship diagram in the image below. Please note that th
 
 ![entity relationship diagram 1](https://user-images.githubusercontent.com/83844773/125898140-67d77900-3292-4bb4-8095-86bdfc96890c.png)
 
+In line with our requirements, we will have to break up this wide table into smaller tables in order to reduce redundancy within the database. 
+
 ### Divide the information into tables
+
+There are generally 2 methods to breaking up a complex/wide table into smaller tables. And they are discussed below:
+
+1) Translating entity ralationship (ER) diagram into relations. This can be done by transforming all of the many-to-many relationships within our wide table into one-to-many relationships.
+2) 
 ### Specify primary keys and generate other keys
 ### Set up table relationships
