@@ -43,12 +43,14 @@ All along the way, I will be modeling the table relationships and showing the SQ
 ### Data to be used
 The data being used is possibly a fictional dataset for certain superstore for a period of 4 years. The data is in a .csv format. See the attached link to the source file: [here](https://www.kaggle.com/rohitsahoo/sales-forecasting) . I will include this file within the repository.
 
-In the "Understand the information required", I will briefly describe the various columns and the possible relationships between them. Next we will need to determine the purpose of this database being built.
+In the "Understand the information required" section, I will briefly describe the various columns and the possible relationships between them. Next we will need to determine the purpose of this database being built.
 ### Purpose of the database
 I will be role-playing here a bit to determine the purpose of this database. This is because the purpose of the database will determine the design specifications of this database or warehouse being built. 
 The purpose of this database is to collect and store orders and sales data. We would not be storing this data for the purpose of analytics. Hence, the design considerations for this particular database will be suited for an Online Transaction Processing (OLTP) configuration. The database will be write intensive and normalized to reduce redundencies and save space. 
 If we were more concerned with analyzing or visualizing the sales data showed here, and Online Analytical Process (OLAP) will be suitable, and denormalized tables within the database will be more appropriate. 
 ### Understand the information required
+
+
 
 | Column name | Description | Datatype |
 | ----------- | ----------- | ---------|
@@ -58,6 +60,18 @@ If we were more concerned with analyzing or visualizing the sales data showed he
 |Ship Date| Date the product was shipped| Date|
 |Ship Mode| Class of shipping| char|
 |Customer ID| Unique ID of customer who orders items| varchar|
+|Customer Name| Name of customer|string|
+|Segment| Class/types of customer| char|
+|Country| Country customer lives in| char|
+|City| City customer lives in| char|
+|State| State the customer lives in| char|
+|Postal Code| Zip code the customer lives in| int|
+|Region| Region where the customer lives in| string|
+|Product ID| Unique ID of product being ordered| varchar|
+|Category| Category of product being ordered| string|
+|Sub-category|Sub-category of the product being ordered| string|
+|Product Name| Actual name of the product| string|
+|Sales| Amount the product was sold for| float|
 
 ### Divide the information into tables
 ### Specify primary keys and generate other keys
