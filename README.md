@@ -102,9 +102,19 @@ In line with our requirements, we will have to break up this wide table into sma
 
 ### Divide the information into tables
 
-There are generally 2 methods to breaking up a complex/wide table into smaller tables. And they are discussed below:
+There are generally 2 methods/ rule of thumbs to approaching normalization (breaking up the large table). And they are discussed below:
 
 1) Translating entity ralationship (ER) diagram into relations. This can be done by transforming all of the many-to-many relationships within our wide table into one-to-many relationships.
-2) 
+2) Functional dependencies: By ensuring that there are no transitive dependencies within individual tables 
+
+The entity relationship method will be used to simplify the wide table which will be accomplished by splitting the wide table into various entities. The resulting entities will be in various one to many relationships with other entities. With our wide table, I broke down the data into 10 various entities. See the entity tables in the screenshots below:
+
+![normalized tables 2](https://user-images.githubusercontent.com/83844773/125912577-c8cd9b9a-4901-475c-9c7d-4edc0e2dd06f.png)
+![normalized tables 1](https://user-images.githubusercontent.com/83844773/125912579-3574cde4-15aa-4c3e-96fc-d7f84d6d2f9a.png)
+
+There will be no SQL code for this step as it can be seen as an intermediate step.
+
+Up next, we will figure out how to assign primary keys to select columns and generate surrogate and foreign keys. These keys are fundamental to the relational database design as we will find out soon.
+
 ### Specify primary keys and generate other keys
 ### Set up table relationships
