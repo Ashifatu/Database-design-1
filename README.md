@@ -73,6 +73,14 @@ If we were more concerned with analyzing or visualizing the sales data showed he
 |Product Name| Actual name of the product| string|
 |Sales| Amount the product was sold for| float|
 
+From the above table, we can notice certain relationships between various columns. It appears that some column information are dependent on each other. To futher drive home this point, we would define 2 types of relationships that exists between columns within this table. 
+
+i) Functional dependency: A relationship between 2 attributes, usually between a primary key and non-key attributes. For any relation, attribute Y is functionally dependent on X (PK) if for every instance of X, that value of X uniquely determines the value of Y. This is a relationship between 2 attributes (X,Y) for every instance X, the value of X uniquely determines the value of Y. For instance in the above table, the attribue "Zipcode" is functionally dependent on "State". This is because states are made up of different Zipcodes. It can be denoted as "State" >>> "Zipcode".
+
+ii) Transitive dependency: This exists when the following occurs: X >> Y >> Z. This denotes that Y is functionally dependent on X and Z is functionally dependent on Y. Hence, we can conclude that Z is transitively dependent on X as long as Y is not a candidate key. 
+
+These definitions will enable us to understand the requirements of normalization coming up in further sections.
+
 ### Divide the information into tables
 ### Specify primary keys and generate other keys
 ### Set up table relationships
