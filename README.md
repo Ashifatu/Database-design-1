@@ -55,7 +55,10 @@ If we were more concerned with analyzing or visualizing the sales data showed he
 | Row ID | Unique row number for each record | int|
 | Order ID | Order id for the items being shipped|varchar|
 |Order Date| Date the order was made|Date|
-|Ship Date
+|Ship Date| Date the product was shipped| Date|
+|Ship Mode| Class of shipping| char|
+|Customer ID| Unique ID of customer who orders items| varchar|
+
 ### Divide the information into tables
 ### Specify primary keys and generate other keys
 ### Set up table relationships
