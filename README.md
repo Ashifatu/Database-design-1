@@ -1,5 +1,5 @@
 # Database design
-This repository is a step-by-step guide to designing a relational database using PostgreSQL. 
+This repository is a step-by-step guide to designing a relational database using PostgreSQL.
 
 ## Table of Contents
 [Introduction](#introduction)
@@ -19,14 +19,10 @@ This repository is a step-by-step guide to designing a relational database using
 
 <a name="headers"/>
 
-
-
-
-
-
-
-
 ### Introduction
+
+Databases are at the core of businesses because they help store and communicate information related to various business processes. Such information could include sales transactions, product inventory, customer profile and much more. 
+
 ### Data to be used
 ### Purpose of the database
 ### Understand the information required
