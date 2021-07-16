@@ -83,10 +83,10 @@ ii) Transitive dependency: This exists when the following occurs: X >> Y >> Z. T
 ### Migrate the data
 
 First we will need to create a table in the empty database. 
-Then we will need to migrate the data from the csv to the database. See the SQL code in the window below
+Then we will need to migrate the data from the csv to the database. See the SQL code in the window below:
 
 
-Also see the entity relationship diagram in the image below. Please note that the retangular shape represents the table name, while the oval shapres represent the column names.
+Also see the entity relationship diagram in the image below. Please note that the retangular shape represents the table name, while the oval shapes represent the column names.
 
 
 ### Divide the information into tables
