@@ -75,9 +75,17 @@ If we were more concerned with analyzing or visualizing the sales data showed he
 
 From the above table, we can notice certain relationships between various columns. It appears that some column information are dependent on each other. To futher drive home this point, we would define various relationships that exists between columns within this table. 
 
-i) Functional dependency: A relationship between 2 attributes, usually between a primary key and non-key attributes. For any relation, attribute Y is functionally dependent on X (PK) if for every instance of X, that value of X uniquely determines the value of Y. This is a relationship between 2 attributes (X,Y) for every instance X, the value of X uniquely determines the value of Y. For instance in the above table, the attribue "Sales" is functionally dependent on "Row ID". This is because the Row ID uniquely identifies the Sales amount.
+i) **Functional dependency**: A relationship between 2 attributes, usually between a primary key and non-key attributes. For any relation, attribute Y is functionally dependent on X (PK) if for every instance of X, that value of X uniquely determines the value of Y. This is a relationship between 2 attributes (X,Y) for every instance X, the value of X uniquely determines the value of Y. This is represented as X >> Y. For instance in the above table, the attribue "Sales" is functionally dependent on "Row ID". This is because the Row ID uniquely identifies the Sales amount.
 
-ii) Transitive dependency: This exists when the following occurs: X >> Y >> Z. This denotes that Y is functionally dependent on X and Z is functionally dependent on Y. Hence, we can conclude that Z is transitively dependent on X as long as Y is not a candidate key. 
+ii) **Transitive dependency**: This exists when the following occurs: X >> Y >> Z. This denotes that Y is functionally dependent on X and Z is functionally dependent on Y. Hence, we can conclude that Z is transitively dependent on X as long as Y is not a candidate key. From our current data, "Sales" amount is functionally depended on the "Product name" (Sales amount is uniquely determined by the product number), while the "Product ID" uniquely determines the "Product Name". Therefore this can be denoted as: Product ID >> Product Name >> Sales. Sales amount can be said to have a transitive dependency with Product ID as the product name is not considered as a candidate key.
+
+Other relationships between columns or tables include the following
+
+iii) **One to One relationships**: Relationship between 2 entities (A & B) where an element in A is linked to an element in B.
+
+iv) **One to many**: A relationship between 2 entities (A & B) where an element of A is linked with many element in B.
+
+V) **Many to many**: A relationship between 2 entities (A & B) where multiple records within an entity A is linked with many records within entity B.
 
 
 ### Migrate the data
@@ -88,6 +96,7 @@ Then we will need to migrate the data from the csv to the database. See the SQL 
 
 Also see the entity relationship diagram in the image below. Please note that the retangular shape represents the table name, while the oval shapes represent the column names.
 
+![entity relationship diagram 1](https://user-images.githubusercontent.com/83844773/125898140-67d77900-3292-4bb4-8095-86bdfc96890c.png)
 
 ### Divide the information into tables
 ### Specify primary keys and generate other keys
