@@ -199,8 +199,7 @@ See figure 3 below the various primary keys and foreign keys on the different en
 
 **Figure 3**
 
-![PK and FK 1](https://user-images.githubusercontent.com/83844773/126193482-5f17f803-d4d5-44fb-ab08-839f4d70679d.png)
-![PK and FK 2](https://user-images.githubusercontent.com/83844773/126193484-8a6e491f-5683-463a-89f4-c02a2164ca14.png)
+![PK and FK final](https://user-images.githubusercontent.com/83844773/126234161-2e53fc4e-c050-4b79-9c25-edd0d7283401.png)
 
 See the postgre SQL code required to assign all the specified keys below: 
 
@@ -208,19 +207,31 @@ See the postgre SQL code required to assign all the specified keys below:
 
 Up next, we will glue up the tables using the foreign keys.
 
+
+
 ### Set up table relationships
 
-Using the below code, we would link the entity tables together using the various foreign keys. The entity relationship of the end result will described by figure 4:
+Using the below code, we would link the entity tables together using the various foreign keys. 
 
 
+
+The entity relationship of the end result will described by figure 4:
 
 
 **Figure 4**:
 
 ![Full er diagram](https://user-images.githubusercontent.com/83844773/126207487-76fd3bac-dbee-42bd-a4a6-c0eed776f7cc.png)
-
+_The blue rhombuses represent a relationship between multiple tables. While the numbers on either side (horizontal relation) or above and below (vertical relation) represents the type of relationship between the 2 connected entities. The 1 and N relationships represnts a one to many relationship between the various entites_.
 
 ### Database schema
+The schema of the database represents the blueprint on the database. It describes both the organization of the data and the various relationships between the database tables. 
+
+There are two types of schemas:
+ 
+ **Logical schema**: This represents how the data is represented in tables. This is similar to the entity relationship diagrams but is more detailed. It does not just provide information about how the tables and columns are related, but also it also sepecifies design parameters such as column constraints and triggers.
+ 
+ **Physical schema**: This represents how the data is stored within the disk.
+
 
 ### Assign access rights and restrictions
 
