@@ -18,7 +18,7 @@ This repository is a step-by-step guide to designing a relational database using
 
 [Set up table relationships](#set-up-table-relationships)
 
-[Database schema](#database-schema)
+[Database modeling](#database-modeling)
 
 [Assign access rights and restrictions](#assign-access-rights-and-restrictions)
 
@@ -223,16 +223,26 @@ The entity relationship of the end result will described by figure 4:
 ![Full er diagram](https://user-images.githubusercontent.com/83844773/126207487-76fd3bac-dbee-42bd-a4a6-c0eed776f7cc.png)
 _The blue rhombuses represent a relationship between multiple tables. While the numbers on either side (horizontal relation) or above and below (vertical relation) represents the type of relationship between the 2 connected entities. The 1 and N relationships represnts a one to many relationship between the various entites_.
 
-### Database schema
-The schema of the database represents the blueprint on the database. It describes both the organization of the data and the various relationships between the database tables. 
+### Database modeling
+Before a database is created, the database developer should have planned and modeled the database. However, this was done backwards within this guide because I want to show a logical process of how the final form was arrived at. 
 
-There are two types of schemas:
+So far, we have modeled the various relationship between the various entities within our data. However, there are three levels to the to a data model. The three levels are as follows:
+
+1) **Conceptual data model**: This model describes the entities, relationships and attributes. An example of this type of model is the entity-relational diagrams, which we have seen so far in this write up _(Figure 1 - 4)_. Another type of this level of model is called a Unified Modeling Language (UML).
+
+2) **Logical data model**: This model determines how the entities and relationships are mapped into tables. An example of this is the database schema.
+
+3) **Physical data model**: This level of modeling describes the pysical storage of the data. These include partitions, tablespaces, indexes...etc
  
- **Logical schema**: This represents how the data is represented in tables. This is similar to the entity relationship diagrams but is more detailed. It does not just provide information about how the tables and columns are related, but also it also sepecifies design parameters such as column constraints and triggers.
- 
- **Physical schema**: This represents how the data is stored within the disk.
+Since we have already modeled the database conceptually, we will show a logical data model also known as the schema. Components of the physical data model will be discussed in the section labeled [other considerations](#other-considerations)<a name="headers"/>.
+
+A database schema can basically be described as the blueprint of the database. It shows more detailed information about the database than the logical models such as the various constraints that enforces consistency within the entity table columns, information about the keys, views and others. See figure 5 below for the current schema of the sales database:
+
+**Figure 5**:
 
 
 ### Assign access rights and restrictions
+
+A good database management system should provide a way to restrict data to only authorized personnel. We can do this by creating and assigning roles.
 
 ### Other considerations
