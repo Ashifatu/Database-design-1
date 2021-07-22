@@ -76,15 +76,15 @@ If we were more concerned with analyzing or visualizing the sales data showed he
 
 | Column name | Description | Datatype |
 | ----------- | ----------- | ---------|
-| Row ID | Unique row number for each record | int|
-| Order ID | Order id for the items being shipped|varchar|
-|Order Date| Date the order was made|Date|
-|Ship Date| Date the product was shipped| Date|
-|Ship Mode| Class of shipping| char|
-|Customer ID| Unique ID of customer who orders items| varchar|
-|Customer Name| Name of customer|string|
-|Segment| Class/types of customer| char|
-|Country| Country customer lives in| char|
+| Row ID | Unique row number for each record | INT|
+| Order ID | Order id for the items being shipped|CHAR|
+|Order Date| Date the order was made|CHAR|
+|Ship Date| Date the product was shipped| CHAR|
+|Ship Mode| Class of shipping| VARCHAR|
+|Customer ID| Unique ID of customer who orders items| CHAR|
+|Customer Name| Name of customer|VARCHAR|
+|Segment| Class/types of customer| VARCHAR|
+|Country| Country customer lives in| VARCHAR|
 |City| City customer lives in| char|
 |State| State the customer lives in| char|
 |Postal Code| Zip code the customer lives in| int|
@@ -112,9 +112,43 @@ V) **Many to many**: A relationship between 2 entities (A & B) where multiple re
 
 ### Migrate the data into the database
 
-First we will need to create a table in the empty database. 
-Then we will need to migrate the data from the csv to the database. See the SQL code in the window below:
+First we will need to create a table in the empty database. See the code used below:
 
+``` sql
+--To migrate the csv file, we first need to create a table 
+CREATE TABLE Sales (
+	Row_ID INT,
+	Order_ID CHAR(14),
+	Order_date CHAR(10),
+	Ship_date CHAR(10),
+	Ship_mode VARCHAR(50),
+	Customer_ID CHAR(8),
+	Customer_Name VARCHAR(100),
+	segment VARCHAR(50),
+	Country VARCHAR(50),
+	City VARCHAR(50),
+	State VARCHAR(50),
+	Postal_code CHAR(5),
+	Region VARCHAR(10),
+	Product_ID CHAR(15),
+	Category VARCHAR(50),
+	Sub_category VARCHAR(50),
+	Product_Name VARCHAR(250),
+	Sales FLOAT(2)
+)
+```
+
+
+Then we will need to migrate the data from the csv to the database using the code in the window below:
+
+``` sql
+--COPY the CSV file into the sales table. Ensure that the file is in folder where the PostgreSQL client can access. I used the public folder
+
+COPY sales
+FROM 'C:\Users\Public\train.csv'
+DELIMITER ','
+CSV HEADER;
+```
 
 Also see the entity relationship diagram in the image below. Please note that the retangular shape represents the table name, while the oval shapes represent the column names.
 
@@ -221,6 +255,7 @@ The entity relationship of the end result will described by figure 4:
 **Figure 4**:
 
 ![Full er diagram](https://user-images.githubusercontent.com/83844773/126207487-76fd3bac-dbee-42bd-a4a6-c0eed776f7cc.png)
+
 _The blue rhombuses represent a relationship between multiple tables. While the numbers on either side (horizontal relation) or above and below (vertical relation) represents the type of relationship between the 2 connected entities. The 1 and N relationships represnts a one to many relationship between the various entites_.
 
 ### Database modeling
