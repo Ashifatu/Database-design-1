@@ -240,9 +240,14 @@ A database schema can basically be described as the blueprint of the database. I
 
 **Figure 5**:
 
+![schema 1](https://user-images.githubusercontent.com/83844773/126582939-a22c4870-92a7-4be1-8e3d-1cce6aaec7d6.png)
+_The table names are written above the individual tables, while the columns names and constraints are documented within the tables. The data types are also specified next to the column names. Null within the "Orders" and "Customers" tables indicates columns that are allowed to have no values. Finally the dotted lines between the entity tables represents an non-identifying relationship between each tables.This means a child entity can be identified on its own without the parent key_.
 
 ### Assign access rights and restrictions
 
-A good database management system should provide a way to restrict data to only authorized personnel. We can do this by creating and assigning roles.
+A good database management system should provide a way to restrict data to only authorized personnel. Imagine that there are various employees working on an organisation's database. These employees could range from database developers, to data analysts who all have access to the database. Due to these various varying responsibilities of these individuals, there will be a need to restrict those employees to unique roles with certain privileges. These roles will give the certain the ability to perform various actions on the database while restricting other actions from those individuals.
+
+One way of doing this is by creating roles. This can be done using the "CREATE ROLE" command in SQL. 
+Within our new database, we will create new role called a Data analyst with certain privileges. 
 
 ### Other considerations
