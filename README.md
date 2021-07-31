@@ -247,6 +247,46 @@ Up next, we will glue up the tables using the foreign keys.
 
 Using the below code, we would link the entity tables together using the various foreign keys. 
 
+```sql
+--Link candidate foreign keys to referenced primary keys (sub_category table)
+ALTER TABLE sub_category
+	ADD CONSTRAINT sub_category_fkey 
+		FOREIGN KEY (category_id) REFERENCES category (category_id);
+		
+--Link candidate foreign keys to referenced primary keys (Product table)
+ALTER TABLE products
+	ADD CONSTRAINT products_fkey
+		FOREIGN KEY (sub_category_id) REFERENCES sub_category (sub_category_id);
+		
+--Link candidate foreign keys to referenced primary keys (orders table)
+ALTER TABLE orders
+	ADD CONSTRAINT orders_fkey
+		FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+	ADD CONSTRAINT orders_fkey2
+		FOREIGN KEY (postal_code_id) REFERENCES post_code (postal_code_id);
+		
+--Link candidate foreign keys to referenced primary keys (sales table)
+ALTER TABLE sales
+	ADD CONSTRAINT sales_fkey
+		FOREIGN KEY (order_id) REFERENCES orders(order_id),
+	ADD CONSTRAINT sales_fkey2
+		FOREIGN KEY (product_id_2) REFERENCES products(product_id);
+		
+--Link candidate foreign keys to referenced primary keys (state table)
+ALTER TABLE state
+	ADD CONSTRAINT state_fkey
+		FOREIGN KEY (region_id) REFERENCES regions (region_id);
+		
+--Link candidate foreign keys to referenced primary keys (city table)
+ALTER TABLE city
+	ADD CONSTRAINT city_fkey
+		FOREIGN KEY (state_id) REFERENCES state (state_id);
+		
+--Link candidate foreign keys 
+ALTER TABLE post_code
+	ADD CONSTRAINT post_code_fkey
+		FOREIGN KEY (city_id) REFERENCES city (city_id);
+```
 
 
 The entity relationship of the end result will described by figure 4:
