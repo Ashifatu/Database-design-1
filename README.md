@@ -3,7 +3,8 @@ This repository is a step-by-step guide to designing a relational database using
 To follow this guide, postgreSQL should be installed on your computer. Also, a database should have been set up.
 To install postgreSQL and create a database, follow the links below:
 
-Install postgreSQL: [https://www.postgresqltutorial.com/install-postgresql/]https://www.postgresqltutorial.com/install-postgresql/
+Install postgreSQL: [https://www.postgresqltutorial.com/install-postgresql/](https://www.postgresqltutorial.com/install-postgresql/)
+Create a database: [https://www.postgresqltutorial.com/postgresql-create-database/](https://www.postgresqltutorial.com/postgresql-create-database/)
 
 ## Table of Contents
 [Introduction](#introduction)
