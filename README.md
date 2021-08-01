@@ -691,7 +691,7 @@ A database schema can basically be described as the blueprint of the database. I
 
 **Figure 5**:
 
-![schema 2](https://user-images.githubusercontent.com/83844773/127787859-63e0cfba-c59e-4b20-a220-0b80fe2ce826.png)
+![schema 3](https://user-images.githubusercontent.com/83844773/127788114-40d65ff0-6c2e-41fa-912d-4090ca7f00bd.png)
 
 
 _The table names are written above the individual tables, while the columns names and constraints are documented within the tables. The data types are also specified next to the column names. Null within the "Orders" and "Customers" tables indicates columns that are allowed to have no values. Finally the dotted lines between the entity tables represents an non-identifying relationship between each tables.This means a child entity can be identified on its own without the parent key_.
