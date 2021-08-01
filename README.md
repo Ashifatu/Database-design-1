@@ -670,7 +670,7 @@ The entity relationship of the end result will described by figure 4:
 
 **Figure 4**:
 
-![Full er diagram](https://user-images.githubusercontent.com/83844773/126207487-76fd3bac-dbee-42bd-a4a6-c0eed776f7cc.png)
+[full er diagram 2](https://user-images.githubusercontent.com/83844773/127786937-f56c097e-4645-49b9-aa4a-5c909459be7c.png)
 
 _The blue rhombuses represent a relationship between multiple tables. While the numbers on either side (horizontal relation) or above and below (vertical relation) represents the type of relationship between the 2 connected entities. The 1 and N relationships represnts a one to many relationship between the various entites_.
 
