@@ -4,6 +4,7 @@ To follow this guide, postgreSQL should be installed on your computer. Also, a d
 To install postgreSQL and create a database, follow the links below:
 
 Install postgreSQL: [https://www.postgresqltutorial.com/install-postgresql/](https://www.postgresqltutorial.com/install-postgresql/)
+
 Create a database: [https://www.postgresqltutorial.com/postgresql-create-database/](https://www.postgresqltutorial.com/postgresql-create-database/)
 
 ## Table of Contents
