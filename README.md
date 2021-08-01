@@ -235,8 +235,384 @@ See figure 3 below the various primary keys and foreign keys on the different en
 
 ![PK and FK final](https://user-images.githubusercontent.com/83844773/126234161-2e53fc4e-c050-4b79-9c25-edd0d7283401.png)
 
-See the postgre SQL code required to assign all the specified keys below: 
+See the below code block for the creation of additional tables: 
 
+```sql
+--To create the new tables, we will use the 'CREATE TABLE' command
+
+--Customer table
+CREATE TABLE Customer(
+customer_id CHAR(8) PRIMARY KEY,
+customer_name VARCHAR(100),
+segment VARCHAR(50),
+postal_code CHAR(5)
+);
+
+
+--Post code table
+CREATE TABLE Post_code(
+	postal_code CHAR(5) PRIMARY KEY,
+	city_id INT,
+	city VARCHAR(50)
+);
+
+--City table
+CREATE TABLE City(
+	city_id SERIAL PRIMARY KEY,
+	city VARCHAR(50),
+	state_id CHAR(2),
+	state VARCHAR(50)
+);
+ 
+--State table
+CREATE TABLE State(
+	state_id CHAR(2) PRIMARY KEY,
+	state VARCHAR(50),
+	region_id INT,
+	region VARCHAR(10)
+);
+
+--Region table
+CREATE TABLE Regions(
+	region_id SERIAL PRIMARY KEY,
+	region VARCHAR(10),
+	Country VARCHAR(50)
+);
+
+--Orders table
+CREATE TABLE Orders(
+	order_id CHAR(8) PRIMARY KEY,
+	order_date CHAR(10),
+	ship_date CHAR(10),
+	ship_mode VARCHAR(50),
+	product_id CHAR(15),
+	customer_id CHAR(8)
+);
+	
+--Product table
+CREATE TABLE Products(
+	product_id CHAR(15) PRIMARY KEY,
+	product_name VARCHAR(250),
+	sub_category VARCHAR(50),
+	sub_category_id INT
+	
+);
+
+--Sub-cateory table
+CREATE TABLE sub_category(
+	sub_category_id SERIAL PRIMARY KEY,
+	sub_category VARCHAR(50),
+	category_id INT,
+	category VARCHAR(50)
+);
+
+--Category table
+CREATE TABLE category(
+	category_id SERIAL PRIMARY KEY,
+	category VARCHAR(50)
+);
+
+```
+
+See the below code block for the migration of data into the new tables and the addition of foreign ids to the applicable tables:
+
+```sql
+--Import external dataset for the state ID
+CREATE TABLE state_identification(
+	fullname VARCHAR(30),
+	id CHAR(2)
+);
+
+---Copy the CSV file into the state_identification table
+COPY state_identification
+FROM 'C:\Users\Public\state IDs.csv'
+DELIMITER ','
+CSV HEADER;
+
+----Alter sales table to include 
+ALTER TABLE sales
+ADD COLUMN state_id CHAR(2);
+	
+UPDATE sales AS s
+SET state_id = si.id
+FROM state_identification AS si
+WHERE s.state = si.fullname;
+
+select * from sales
+	where state_id IS NULL;
+	
+--Insert distinct region data into the region table from 
+--sales table
+
+INSERT INTO regions(region, country)
+SELECT DISTINCT region, country
+FROM sales;
+
+--Insert distinct state_id and state into state table from
+--sales table
+
+INSERT INTO state(state_id, state, region)
+SELECT DISTINCT state_id, state, region
+FROM sales
+ORDER BY state;
+
+---Migrate region ID into the state tabe table from the region table
+
+UPDATE state AS s
+SET region_id = r.region_id
+FROM regions AS r
+WHERE s.region = r.region;
+
+--Drop region column from the State table
+
+ALTER TABLE state
+DROP COLUMN region;
+
+--Insert distinct city data into the city table from 
+--sales table
+
+INSERT INTO city(city, state)
+SELECT DISTINCT city, state
+FROM sales
+ORDER BY city;
+
+--Migrate state ID into city table from
+--state table
+
+UPDATE city AS c
+SET state_id = s.state_id
+FROM state AS s
+WHERE c.state = s.state;
+
+--Drop state column from the city table
+
+ALTER TABLE city
+DROP COLUMN state;
+
+--Update sales table to resolve duplicate postal_code 
+--with different cities
+
+UPDATE sales
+SET city = 'San Diego'
+WHERE postal_code = '92024' AND city = 'Encinitas';
+
+--Alter the post_code table to remove primary key from post_code ID
+--Add a new column called postal_code_ID (make primary key and index)
+ALTER TABLE post_code 
+	DROP CONSTRAINT post_code_pkey,
+	ADD COLUMN postal_code_id SERIAL PRIMARY KEY;
+
+ALTER TABLE post_code
+	ALTER COLUMN postal_code DROP NOT NULL
+--Insert distinct postal code data into post code table
+
+INSERT INTO post_code(postal_code, city)
+SELECT DISTINCT postal_code, city
+FROM sales
+ORDER BY postal_code;
+
+--Migrate city ID into post_code table from
+--city table
+
+UPDATE post_code AS p
+SET city_id = c.city_id
+FROM city AS c
+WHERE p.city = c.city;
+
+--Drop city column from the post_code table
+
+ALTER TABLE post_code
+DROP COLUMN city;
+
+--Alter customer table to drop postal_code column and
+--add column: postal_code_id
+
+ALTER TABLE customer
+	DROP COLUMN postal_code,
+	ADD COLUMN postal_code_id INT
+
+--Insert distinct customer data into customer table
+
+INSERT INTO Customer(customer_id, customer_name, segment)
+SELECT DISTINCT customer_id, customer_name, segment
+FROM sales
+ORDER BY customer_name;
+
+--Drop table after error
+
+DROP TABLE customer;
+
+CREATE TABLE customer(
+customer_id CHAR(8) PRIMARY KEY,
+customer_name VARCHAR(100),
+segment VARCHAR(50),
+postal_code CHAR(5),
+postal_code_id INT
+);
+
+-- Resolve case of duplicate customer_id when trying to get distinct
+-- customer information with postal_code (As result of a customer changing locations over time)
+-- To result this, I will simply update the older locations to the most up to date postal code
+
+UPDATE sales
+SET postal_code = '73120'
+WHERE customer_id = 'AB-10015'
+
+--Drop uneccessary colunms in customer table
+ALTER TABLE customer
+DROP COLUMN postal_code
+
+
+--Insert distinct customer data into customer table
+
+INSERT INTO customer(customer_id, customer_name, segment)
+SELECT DISTINCT customer_id, customer_name, segment
+FROM sales
+ORDER BY customer_name;
+
+ALTER TABLE orders 
+	ADD COLUMN postal_code CHAR(5),
+	ADD COLUMN postal_code_id INT;
+
+ALTER TABLE orders
+	DROP COLUMN order_id,
+	ADD COLUMN order_id CHAR(14) PRIMARY KEY;
+	
+--Insert distinct order data into orders table
+
+INSERT INTO orders(order_id, order_date, ship_date, 
+				   ship_mode, customer_id, postal_code)
+SELECT DISTINCT order_id, order_date, ship_date, ship_mode, customer_id, postal_code
+FROM sales
+ORDER BY order_id;
+
+--Migrate postal_code_id referencing postal code table
+
+UPDATE orders AS o
+SET postal_code_id = p.postal_code_id
+FROM post_code AS p
+WHERE o.postal_code = p.postal_code
+
+--Drop empty column and postal_code columns in orders table
+ALTER TABLE orders
+	DROP COLUMN product_id,
+	DROP COLUMN postal_code;
+
+--Insert category data into category table
+
+INSERT INTO category(category)
+SELECT DISTINCT category
+FROM sales
+ORDER BY category;
+
+--Insert sub-category data into sub-category table
+
+INSERT INTO sub_category(sub_category, category)
+SELECT DISTINCT sub_category, category
+FROM sales
+ORDER BY sub_category;
+
+--Migrate category_id into sub_category table from
+--category table
+
+UPDATE sub_category AS s
+SET category_id = c.category_id
+FROM category AS c
+WHERE c.category = s.category;
+
+--Drop category column from the sub_category table
+
+ALTER TABLE sub_category
+DROP COLUMN category;
+
+	
+--ALTER SALES table to include product_id_2 column
+--generate unique product id and insert into product_id_2 column within sales
+
+CREATE TABLE products_2(product_name VARCHAR(1000),
+	category VARCHAR(50),
+	sub_category VARCHAR(50),
+	fake_ID SERIAL,
+	IDplus10000000 CHAR(15),
+	product_id_2 CHAR(15)
+);
+
+INSERT INTO products_2(product_name, category, sub_category)
+SELECT DISTINCT product_name, category, sub_category
+FROM sales
+ORDER by Category;
+
+UPDATE products_2
+SET IDplus10000000 = 10000000 + fake_id;
+
+ALTER TABLE products_2
+	ADD COLUMN product_id CHAR(15);
+	
+UPDATE products_2
+SET product_id = UPPER (CONCAT(substring(category,1,3),'-', substring(sub_category,1,2)
+							   ,'-',IDplus10000000));
+
+INSERT INTO products(product_id, product_name, sub_category)
+SELECT DISTINCT product_id, product_name, sub_category
+FROM products_2
+ORDER BY product_id;
+
+--Move sub_category id by referencing from sub_category table
+
+UPDATE products AS p
+SET sub_category_id = s.sub_category_id
+FROM sub_category AS s
+WHERE p.sub_category = s.sub_category
+
+--Drop sub_category column from the product table
+
+ALTER TABLE products
+DROP COLUMN sub_category;
+
+SELECT *
+FROM orders;
+
+--Alter the sales table to the final form
+	
+ALTER TABLE Sales
+	ADD COLUMN product_id_2 CHAR(15);
+
+UPDATE sales AS s
+SET product_id_2 = p.product_id
+FROM products AS p
+WHERE p.product_name = s.product_name
+
+SELECT *
+FROM sales;
+
+ALTER TABLE sales
+DROP COLUMN order_date,
+DROP COLUMN ship_date,
+DROP COLUMN	ship_mode,
+DROP COLUMN customer_id,
+DROP COLUMN customer_name,
+DROP COLUMN segment,
+DROP COLUMN country,
+DROP COLUMN city,
+DROP COLUMN state,
+DROP COLUMN postal_code,
+DROP COLUMN region,
+DROP COLUMN category,
+DROP COLUMN sub_category,
+DROP COLUMN state_id,
+DROP COLUMN product_id;
+
+ALTER TABLE sales
+DROP COLUMN product_name;
+
+ALTER TABLE customer
+DROP COLUMN postal_code_id;
+
+ALTER TABLE sales
+ADD PRIMARY KEY (row_id);
+
+
+```
 
 
 Up next, we will glue up the tables using the foreign keys.
