@@ -36,7 +36,7 @@ Create a database: [https://www.postgresqltutorial.com/postgresql-create-databas
 
 ### Introduction
 
-Databases are at the core of businesses because they help store and communicate information related to various business processes. Such information could include sales transactions, product inventory, customer profile and much more. And through the use of database management systems (DBMS), the data stored can be queried, manipulated, structured and restricted. The stored data can later be analyzed to drive business decisions. 
+Databases are crucial businesses because they help store and communicate information related to various business processes. Such information could include sales transactions, product inventory, customer profile and much more. And through the use of database management systems (DBMS), the data stored can be queried, manipulated, structured and restricted. The stored data can later be analyzed to drive business decisions. 
 
 Within this repository, I will carry out the following:
 1) Migrate a sample data into a PostgreSQL database
@@ -76,9 +76,10 @@ In the "Understand the information required" section, I will briefly describe th
 I will be role-playing here a bit to determine the purpose of this database. This is because the purpose of the database will determine the design specifications of this database or warehouse being built. 
 The purpose of this database is to collect and store orders and sales data. We would not be storing this data for the purpose of analytics. Hence, the design considerations for this particular database will be suited for an Online Transaction Processing (OLTP) configuration. The database will be write intensive and normalized to reduce redundencies and save space. 
 If we were more concerned with analyzing or visualizing the sales data showed here, and Online Analytical Process (OLAP) will be suitable, and denormalized tables within the database will be more appropriate. 
+
 ### Understand the information required
 
-
+WIthin the CSV file being migrated, there are 18 columns and 9,800 rows. In the below table, see the details of the 18 columns that make up the dataset
 
 | Column name | Description | Datatype |
 | ----------- | ----------- | ---------|
@@ -103,7 +104,7 @@ If we were more concerned with analyzing or visualizing the sales data showed he
 
 From the above table, we can notice certain relationships between various columns. It appears that some column information are dependent on each other. To futher drive home this point, we would define various relationships that exists between columns within this table. 
 
-i) **Functional dependency**: A relationship between 2 attributes, usually between a primary key and non-key attributes. For any relation, attribute Y is functionally dependent on X (PK) if for every instance of X, that value of X uniquely determines the value of Y. This is a relationship between 2 attributes (X,Y) for every instance X, the value of X uniquely determines the value of Y. This is represented as X >> Y. For instance in the above table, the attribue "Sales" is functionally dependent on "Row ID". This is because the Row ID uniquely identifies the Sales amount.
+i) **Functional dependency**: A relationship between 2 attributes, usually between a primary key and non-key attributes. For any relation, attribute Y is functionally dependent on X (PK) if for every instance of X, that value of X uniquely determines the value of Y. This relationship can be represented as X >> Y. For instance in the above table, the attribue "Sales" is functionally dependent on "Row ID". This is because the Row ID uniquely identifies the Sales amount.
 
 ii) **Transitive dependency**: This exists when the following occurs: X >> Y >> Z. This denotes that Y is functionally dependent on X and Z is functionally dependent on Y. Hence, we can conclude that Z is transitively dependent on X as long as Y is not a candidate key. From our current data, "Sales" amount is functionally depended on the "Product name" (Sales amount is uniquely determined by the product number), while the "Product ID" uniquely determines the "Product Name". Therefore this can be denoted as: Product ID >> Product Name >> Sales. Sales amount can be said to have a transitive dependency with Product ID as the product name is not considered as a candidate key.
 
@@ -627,7 +628,7 @@ Up next, we will glue up the tables using the foreign keys.
 
 ### Set up table relationships
 
-Using the below code, we would link the entity tables together using the various foreign keys. 
+Using the FOREIGN KEY and REFERENCES command, we would link the entity tables together using the various foreign keys. See the code block below:
 
 ```sql
 --Link candidate foreign keys to referenced primary keys (sub_category table)
