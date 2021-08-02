@@ -95,13 +95,13 @@ WIthin the CSV file being migrated, there are 18 columns and 9,800 rows. In the 
 |Country| Country customer lives in| VARCHAR|
 |City| City customer lives in| CHAR|
 |State| State the customer lives in| CHAR|
-|Postal Code| Zip code the customer lives in| int|
-|Region| Region where the customer lives in| string|
-|Product ID| Unique ID of product being ordered| varchar|
-|Category| Category of product being ordered| string|
-|Sub-category|Sub-category of the product being ordered| string|
-|Product Name| Actual name of the product| string|
-|Sales| Amount the product was sold for at the order date | float|
+|Postal Code| Zip code the customer lives in| INT|
+|Region| Region where the customer lives in| VARCHAR|
+|Product ID| Unique ID of product being ordered| VARCHAR|
+|Category| Category of product being ordered| VARCHAR|
+|Sub-category|Sub-category of the product being ordered| VARCHAR|
+|Product Name| Actual name of the product| VARCHAR|
+|Sales| Amount the product was sold for at the order date | FLOAT|
 
 From the above table, we can notice certain relationships between various columns. It appears that some column information are dependent on each other. To futher drive home this point, we would define various relationships that exists between columns within this table. 
 
