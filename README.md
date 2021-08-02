@@ -91,8 +91,8 @@ If we were more concerned with analyzing or visualizing the sales data showed he
 |Customer Name| Name of customer|VARCHAR|
 |Segment| Class/types of customer| VARCHAR|
 |Country| Country customer lives in| VARCHAR|
-|City| City customer lives in| char|
-|State| State the customer lives in| char|
+|City| City customer lives in| CHAR|
+|State| State the customer lives in| CHAR|
 |Postal Code| Zip code the customer lives in| int|
 |Region| Region where the customer lives in| string|
 |Product ID| Unique ID of product being ordered| varchar|
