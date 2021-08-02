@@ -1,5 +1,6 @@
 # Database design
-This repository is a step-by-step guide to designing a relational database using PostgreSQL.
+This repository is a step-by-step guide to designing a relational database using PostgreSQL. Here I will be designing, modeling and migrating data into an already created database.
+
 To follow this guide, postgreSQL should be installed on your computer. Also, a database should have been set up.
 To install postgreSQL and create a database, follow the links below:
 
